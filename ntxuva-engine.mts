@@ -1,3 +1,5 @@
+//TODO: There a bugs or in the engine or in the visualization 
+
 export enum Ntxuva_Error{
     OK,
     EMPTY_POSITION,
