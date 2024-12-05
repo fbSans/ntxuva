@@ -255,8 +255,12 @@ export class Ntxuva_Board {
         return res;
     }
 
-       /*low leval: does not check bounds*/
-       private rival_peer_column(col: number): number {
+    public get_current_player() : number{
+        return this.current_player;
+    }
+
+    /*low leval: does not check bounds*/
+    private rival_peer_column(col: number): number {
         let half_len = this.slots_count / 2;
         return Math.floor(half_len - col - 1);
     }
