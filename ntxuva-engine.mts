@@ -140,7 +140,8 @@ class Side {
 
         //Try to overlap when all slots have one stone or less;
         let more_than_one = this.has_slot_with_more_than_one_stone();
-        if(!more_than_one && !this.next_slot(this.slot_from_position(pos))){
+        let next_pos = this.next_slot(this.slot_from_position(pos));
+        if(!more_than_one && this.slots[next_pos] != 0){
            return  {err: Ntxuva_Error.OVERLAP_NOT_ALLOWED , value: pos};
         }
 
@@ -231,7 +232,8 @@ export class Ntxuva_Board {
         let stop_position = stop_position_res.value as Ntxuva_Position;
         if(stop_position.row == 0){
             let remove_pos = this.rival_peer_column(stop_position.col);
-            taken = this.sides[other_player].take_from_col(remove_pos).value;
+            if (this.count(other_player, {row: 0, col: remove_pos}) > 0)
+                taken = this.sides[other_player].take_from_col(remove_pos).value;
         }
         this.current_player = other_player as 0 | 1;
         return {err: Ntxuva_Error.OK, value: taken}
@@ -246,7 +248,6 @@ export class Ntxuva_Board {
         
         //Player2: row1
         //len-1 len-2 ... half_len
-        let r = new Range();
         res.push(new Array(half_len).map((_, i) => {return {row: 1, col: i}}));
         // Player2: row0
         // 0 1    ...   helf_len-1
