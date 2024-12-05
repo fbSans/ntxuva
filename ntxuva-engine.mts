@@ -201,7 +201,7 @@ class Side {
 */
 
 export class Ntxuva_Board {
-    private current_player : number;
+    private current_player : 0 | 1;
     private slots_count: number
     private sides: Array<Side>;
 
@@ -217,7 +217,7 @@ export class Ntxuva_Board {
  
 
     public next_move(position: Ntxuva_Position): Ntxuva_Result<number | Ntxuva_Position> {
-        let other_player = 1 - this.current_player;
+        let other_player = 1 - this.current_player as 0 | 1;
         let stop_position_res = this.sides[this.current_player].start_from(position);
 
         if(stop_position_res.err != Ntxuva_Error.OK) return stop_position_res; 
@@ -230,7 +230,7 @@ export class Ntxuva_Board {
             let remove_pos = this.rival_peer_column(stop_position.col);
             taken = this.sides[other_player].take_from_col(remove_pos).value;
         }
-        this.current_player = other_player;
+        this.current_player = other_player as 0 | 1;
         return {err: Ntxuva_Error.OK, value: taken}
     }
 
@@ -311,7 +311,7 @@ export class Ntxuva_Board {
         return this.sides[player].count(position);
     }
 
-    public get_current_player() : number{
+    public get_current_player() : 0 | 1{
         return this.current_player;
     }
 
