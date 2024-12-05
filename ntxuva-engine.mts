@@ -10,6 +10,7 @@ export enum Ntxuva_Error{
 
 export type Ntxuva_Position = {row: number, col: number};
 export type Ntxuva_Result<T> = {err: Ntxuva_Error, value: T}
+export type Ntxuva_Slot = {count: number, position: Ntxuva_Position}
 
 /*
     Mapping between the index of the slot and its positioning
@@ -27,6 +28,7 @@ class Side {
         this.slots.fill(2) 
     }
    
+    /**Get a copy of the slots of the side*/
     public see_slots(): Array<number>{
         return this.slots.slice();
     }
@@ -114,10 +116,11 @@ class Side {
 
     /*low leval: crashes when out of bounds*/
     private position_from_slot(slot: number):Ntxuva_Position {
-        let half_len = this.slots.length / 2;
+        let len = this.slots.length;
+        let half_len = len / 2;
         let pos: Ntxuva_Position = {
             row: Math.floor(slot / half_len),
-            col: slot % half_len
+            col: slot < half_len? slot: len - 1 - slot
         };
         if (!this.position_in_bounds(pos)) throw Error(`Position out of bounds:` + pos.row + ", " + pos.col);
         return pos;
@@ -207,18 +210,7 @@ export class Ntxuva_Board {
         this.sides[1] = new Side(slots_count);
     }
 
-    /*low leval: does not check bounds*/
-    private rival_peer_column(col: number): number {
-        let half_len = this.slots_count / 2;
-        return Math.floor(half_len - col - 1);
-    }
-
-    public get_sides() : {first: Array<number>, second: Array<number>}{
-        return {
-            first: this.sides[0].see_slots(),
-            second: this.sides[1].see_slots(),
-        }
-    }
+ 
 
     public next_move(position: Ntxuva_Position): Ntxuva_Result<number | Ntxuva_Position> {
         let other_player = 1 - this.current_player;
@@ -238,6 +230,47 @@ export class Ntxuva_Board {
         return {err: Ntxuva_Error.OK, value: taken}
     }
 
+    /**Tells the scheme on which to organize the rows*/
+    public rows(): Array<Array<Ntxuva_Slot>>{
+        let res = [] as Array<Array<Ntxuva_Slot>>;
+        let sides = this.get_sides();
+        let len = sides.first.length;
+        let half_len = len / 2;
+        
+        //Player2: row1
+        //len-1 len-2 ... half_len
+        res.push(sides.second.slice(half_len, len).map((v, i) => {return {count: v, position: {row: 1, col: i}}}).reverse());
+        // Player2: row0
+        // 0 1    ...   helf_len-1
+        res.push(sides.second.slice(0, half_len).map((v, i) => {return {count: v, position :{row: 0, col: i}}}));
+    
+        //Player1: row0
+        //half_len-1 ... 1 0
+        res.push(sides.first.slice(0, half_len).map((v, i) => {return {count: v, position: {row: 0, col: i}}}).reverse());
+    
+        //Player2: row1
+        //half_len ... len-2 len-1
+        res.push(sides.first.slice(half_len, len).map((v, i) => {return {count: v, position: {row: 1, col: i}}}));
+    
+        return res;
+    }
+
+       /*low leval: does not check bounds*/
+       private rival_peer_column(col: number): number {
+        let half_len = this.slots_count / 2;
+        return Math.floor(half_len - col - 1);
+    }
+
+    /**pack a copy of sides array*/
+    private get_sides() : {first: Array<number>, second: Array<number>}{
+        return {
+            first: this.sides[0].see_slots(),
+            second: this.sides[1].see_slots(),
+        }
+    }
 }
+
+
+
 
 

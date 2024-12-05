@@ -1,39 +1,24 @@
-import { Ntxuva_Board } from "./ntxuva-engine.mjs"
+import { Ntxuva_Board, Ntxuva_Position, Ntxuva_Result } from "./ntxuva-engine.mjs"
+
 
 /**debug print the slots of the board*/
 export function print_board(board: Ntxuva_Board){
-    let view = board_rows(board);
+    let view = board.rows();
     for(let v of view.slice(0, 2)){
-        console.log(v);
+        console.log(v.map(a=>{return a.count}));
     }
     console.log()
     for(let v of view.slice(2, 4)){
-        console.log(v);
+        console.log(v.map(a=>{return a.count}));
     }    
 }
 
-/**organizes the board slots in rows that can be used to directly fill the slots in visualization*/
-export function board_rows(board: Ntxuva_Board): Array<Array<number>>{
-    let res = [] as Array<Array<number>>;
-    let sides = board.get_sides();
-    let len = sides.first.length;
-    let half_len = len / 2;
-    
-    //Player2: row1
-    //len-1 len-2 ... half_len
-    res.push(sides.second.slice(half_len, len).reverse());
+export function sprint_pos(pos: Ntxuva_Position) {
+    return "{row: " + pos.row + ", col: " + pos.col + "}"; 
+}
 
-    // Player2: row0
-    // 0 1    ...   helf_len-1
-    res.push(sides.second.slice(0, half_len ));
-
-    //Player1: row0
-    //half_len-1 ... 1 0
-    res.push(sides.first.slice(0, half_len).reverse());
-
-    //Player2: row1
-    //half_len ... len-2 len-1
-    res.push(sides.first.slice(half_len, len));
-
-    return res;
+export function sprint_res<T>(res: Ntxuva_Result<T>){
+    let res_value_rep: any = res.value;
+    if(typeof res.value != "number") res_value_rep = sprint_pos(res.value as Ntxuva_Position);
+    return "{err: " + res.err + ", value: " + res_value_rep + "}"; 
 }
