@@ -20,5 +20,7 @@ yarn-error.log
 
 
 *.js
+*.mjs
 *.js.map
 *.tsbuildinfo
+
