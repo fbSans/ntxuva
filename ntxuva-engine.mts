@@ -28,6 +28,10 @@ class Side {
         this.slots.fill(2) 
     }
    
+    public count(pos: Ntxuva_Position) : number {
+        return this.slots[this.slot_from_position(pos)];
+    }
+
     /**Get a copy of the slots of the side*/
     public see_slots(): Array<number>{
         return this.slots.slice();
@@ -253,6 +257,58 @@ export class Ntxuva_Board {
         res.push(sides.first.slice(half_len, len).map((v, i) => {return {count: v, position: {row: 1, col: i}}}));
     
         return res;
+    }
+
+    public counts(): Array<Array<number>>{
+        let res = [] as Array<Array<number>>;
+        let sides = this.get_sides();
+        let len = sides.first.length;
+        let half_len = len / 2;
+        
+        //Player2: row1
+        //len-1 len-2 ... half_len
+        res.push(sides.second.slice(half_len, len).reverse());
+        // Player2: row0
+        // 0 1    ...   helf_len-1
+        res.push(sides.second.slice(0, half_len));
+    
+        //Player1: row0
+        //half_len-1 ... 1 0
+        res.push(sides.first.slice(0, half_len).reverse());
+    
+        //Player2: row1
+        //half_len ... len-2 len-1
+        res.push(sides.first.slice(half_len, len));
+    
+        return res;
+    }
+
+    public positions(): Array<Array<Ntxuva_Position>>{
+        let res = [] as Array<Array<Ntxuva_Position>>;
+        let sides = this.get_sides();
+        let len = sides.first.length;
+        let half_len = len / 2;
+        
+        //Player2: row1
+        //len-1 len-2 ... half_len
+        res.push(sides.second.slice(half_len, len).map((_, i) => {return {row: 1, col: i}}).reverse());
+        // Player2: row0
+        // 0 1    ...   helf_len-1
+        res.push(sides.second.slice(0, half_len).map((_, i) => {return {row: 0, col: i}}));
+    
+        //Player1: row0
+        //half_len-1 ... 1 0
+        res.push(sides.first.slice(0, half_len).map((v, i) => {return {row: 0, col: i}}).reverse());
+    
+        //Player2: row1
+        //half_len ... len-2 len-1
+        res.push(sides.first.slice(half_len, len).map((v, i) => {return {row: 1, col: i}}));
+    
+        return res;
+    }
+
+    public count(player: 0|1, position: Ntxuva_Position) : number {
+        return this.sides[player].count(position);
     }
 
     public get_current_player() : number{
