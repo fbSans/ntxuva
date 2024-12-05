@@ -24,9 +24,12 @@ function create_game_context(board: Ntxuva_Board): GameContext {
                 if(curr_player != but_player || board.count(curr_player, pos) == 0) return; //Check trivial conditions
                 
                 let _ = board.next_move(pos); // Ignore the result of current play
-
+                let player_element = document.getElementById("current-player");
+                if(player_element != null)
+                    player_element.textContent = "Current player: " + board.get_current_player();
                 update_context(res);
             }
+            but.className = "board_slot";
             buttons_row.push({button: but, position: pos, player: but_player});
         }
         buttons.push(buttons_row);
@@ -51,14 +54,35 @@ window.onload = (e) => {
     
     let board = new Ntxuva_Board();
     let game_context = create_game_context(board);
-    
-    for (let rows of game_context.buttons){
-        let page_row = document.createElement('div');
+    let side0 = document.createElement('div');
+    let side1 = document.createElement('div');
+    side0.className = side1.className = 'board_side';
+    game_element.appendChild(side1);
+    game_element.appendChild(side0);
+
+    let player_element = document.getElementById("current-player");
+    if(player_element != null)
+        player_element.textContent = "Current player: " + board.get_current_player();
+
+    //Side 1
+    for (let rows of game_context.buttons.slice(0, 2)){
+        let page_row = document.createElement('span');
         page_row.className = 'board_row';
         for(let row of rows){
             page_row.appendChild(row.button);
         }
-        game_element.appendChild(page_row);
+        side1.appendChild(page_row);
+    }
+
+
+    //Side 2
+    for (let rows of game_context.buttons.slice(2, 4)){
+        let page_row = document.createElement('span');
+        page_row.className = 'board_row';
+        for(let row of rows){
+            page_row.appendChild(row.button);
+        }
+        side0.appendChild(page_row);
     }
 }
 

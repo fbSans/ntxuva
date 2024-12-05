@@ -1,0 +1,68 @@
+html{
+    font-family: "Iosevka";
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: linear-gradient(45deg, rgb(233, 135, 61), rgb(56, 102, 106));
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    color: rgb(217, 231, 223);
+    font-size: 1.5rem;
+}
+
+h1 {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+#game {
+    position: absolute;
+    box-sizing: content-box;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 500px;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: rgb(76, 94, 110);
+}
+
+#current-player {
+    font-size: larger;
+    font-weight: bold;
+}
+
+.board_slot {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin: 3px;
+    border-radius: 45%;
+    font-size: large;
+    font-weight: bold;
+    background-color: rgb(213, 117, 27);
+    color: rgb(11, 32, 34);
+}
+
+.board_row {
+    display: inline-block;
+    position: relative;
+    margin: 3px;
+}
+
+.board_side {
+    box-sizing: content-box;
+    position: relative;
+    left: 50%;
+    transform: translate(-55%, 0);
+    margin: 20px;
+    border: 2px solid black;
+    padding: 20px;
+    background-color: rgb(233, 200, 162);
+}
