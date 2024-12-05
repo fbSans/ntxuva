@@ -1,4 +1,4 @@
-import {Ntxuva_Board, Ntxuva_Error, Ntxuva_Slot, Ntxuva_Position, Ntxuva_Result} from "./ntxuva-engine.mjs"
+import {Ntxuva_Board, Ntxuva_Error, Ntxuva_Position, Ntxuva_Result} from "./ntxuva-engine.mjs"
 
 type InformedButton = {button:HTMLButtonElement, position: Ntxuva_Position, player: 0|1}
 type GameContext = {board: Ntxuva_Board, buttons: Array<Array<InformedButton>>}
@@ -15,19 +15,19 @@ function create_game_context(board: Ntxuva_Board): GameContext {
     for(let i in schema){
         let row = schema[i];
         let buttons_row = Array() as Array<InformedButton>;
-        for(let slot of row){
+        for(let pos of row){
             let but = document.createElement('button');
             let but_player = Number(i) < 2 ? 1 : 0 as 0|1; 
-            but.textContent = slot.count + ""; //Initial text
+            but.textContent = board.count(but_player, pos) + ""; //Initial text
             but.onclick = () => {
                 let curr_player = board.get_current_player(); 
-                if(curr_player != but_player || board.count(curr_player, slot.position) == 0) return; //Check trivial conditions
+                if(curr_player != but_player || board.count(curr_player, pos) == 0) return; //Check trivial conditions
                 
-                let _ = board.next_move(slot.position); // Ignore the result of current play
+                let _ = board.next_move(pos); // Ignore the result of current play
 
                 update_context(res);
             }
-            buttons_row.push({button: but, position: slot.position, player: but_player});
+            buttons_row.push({button: but, position: pos, player: but_player});
         }
         buttons.push(buttons_row);
     }
