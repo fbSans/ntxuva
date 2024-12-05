@@ -13,9 +13,9 @@ function create_game_context(board: Ntxuva_Board): GameContext {
     };
 
     for(let i in schema){
-        let row = schema[i];
+        let rows = schema[i];
         let buttons_row = Array() as Array<InformedButton>;
-        for(let pos of row){
+        for(let pos of rows){
             let but = document.createElement('button');
             let but_player = Number(i) < 2 ? 1 : 0 as 0|1; 
             but.textContent = board.count(but_player, pos) + ""; //Initial text

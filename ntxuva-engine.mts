@@ -1,5 +1,3 @@
-//TODO: There a bugs or in the engine or in the visualization 
-
 import { lchown } from "fs";
 
 export enum Ntxuva_Error{
@@ -248,18 +246,17 @@ export class Ntxuva_Board {
         
         //Player2: row1
         //len-1 len-2 ... half_len
-        res.push(new Array(half_len).map((_, i) => {return {row: 1, col: i}}));
+        res.push(new Array(half_len).fill(0).map((_, i) => {return {row: 1, col: i}}));
         // Player2: row0
         // 0 1    ...   helf_len-1
-        res.push(new Array(half_len).map((_, i) => {return {row: 0, col: i}}));
+        res.push(new Array(half_len).fill(0).map((_, i) => {return {row: 0, col: i}}));
         //Player1: row0
         //half_len-1 ... 1 0
-        res.push(new Array(half_len).map((_, i) => {return {row: 0, col: half_len - i - 1}}));
+        res.push(new Array(half_len).fill(0).map((_, i) => {return {row: 0, col: half_len - i - 1}}));
     
         //Player2: row1
         //half_len ... len-2 len-1
-        res.push(new Array(half_len).map((_, i) => {return {row: 1, col: half_len - i - 1}}));
-    
+        res.push(new Array(half_len).fill(0).map((_, i) => {return {row: 1, col: half_len - i - 1}}));
         return res;
     }
 

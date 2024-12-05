@@ -4,12 +4,12 @@ import { Ntxuva_Board, Ntxuva_Position, Ntxuva_Result } from "./ntxuva-engine.mj
 /**debug print the slots of the board*/
 export function print_board(board: Ntxuva_Board){
     let view = board.rows();
-    for(let v of view.slice(0, 2)){
-        console.log(v.map(a=>{return board.count(1, a)}));
+    for(let positions of view.slice(0, 2)){
+        console.log(positions.map(p=>{return board.count(1, p)}));
     }
     console.log()
     for(let v of view.slice(2, 4)){
-        console.log(v.map(a=>{return board.count(1, a)}));
+        console.log(v.map(a=>{return board.count(0, a)}));
     }    
 }
 

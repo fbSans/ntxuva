@@ -35,7 +35,7 @@ console.log('==========================================================');
 console.log("test 1");
 board = new Ntxuva_Board(12);
 expect_result(board.next_move({row: 2, col: 0}), {err: Ntxuva_Error.ROW_OUT_OF_BOUNDS, value: 2}, "exeeding row");
-expect_result(board.next_move({row: 0, col: 12}), {err: Ntxuva_Error.COL_OUT_OF_BOUNDS, value: 2}, "exceeding column");
+expect_result(board.next_move({row: 0, col: 12}), {err: Ntxuva_Error.COL_OUT_OF_BOUNDS, value: 12}, "exceeding column");
 
 console.log('==========================================================');
 
