@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "node move-test.mjs"
+    "serve": "node ./build/server.mjs",
+    "build": "node build.js",
+    "test": "node ./build/move-test.mjs"
   },
   "type" : "module",
   "author": "",
