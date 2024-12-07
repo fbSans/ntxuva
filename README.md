@@ -1,6 +1,5 @@
 # Ntxuva
-A simple game of ntxuva
-Its only starting, so the is not much to explore now
+A simple game of ntxuva, its only starting, so there is not much to explore now.
 
 ## **Console**
 * `npm install`
