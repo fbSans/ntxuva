@@ -27,7 +27,7 @@ function create_game_context(board: Ntxuva_Board): GameContext {
                 let player_element = document.getElementById("current-player");
                 if(player_element != null)
                     player_element.textContent = "Current player: " + board.get_current_player();
-                update_context(res);
+                update_game_context(res);
             }
             but.className = "board_slot";
             buttons_row.push({button: but, position: pos, player: but_player});
@@ -38,7 +38,7 @@ function create_game_context(board: Ntxuva_Board): GameContext {
     return res;
 }
 
-function update_context(ctx: GameContext){
+function update_game_context(ctx: GameContext){
     for(let i = 0; i < ctx.buttons.length; i++){
         for(let j = 0; j < ctx.buttons[i].length; ++j){
             let infod_but = ctx.buttons[i][j];
