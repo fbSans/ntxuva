@@ -1,5 +1,3 @@
-import { lchown } from "fs";
-
 export enum Ntxuva_Error{
     OK,
     EMPTY_POSITION,
