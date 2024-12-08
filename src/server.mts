@@ -5,7 +5,7 @@ import * as path from "path";
 
 
 let port = 8000;
-let host = "localhost";
+let host = "0.0.0.0"//"localhost";
 
 const allowed_extensions =  {
     ".txt": "text/plain",
@@ -54,7 +54,7 @@ let loadFile = async (filename: string) => {
 
 
 let server = http.createServer(async (req, res) => {
-    console.log(`HTTP ${req.method} ${req.url}`);
+    console.log(`${new Date().toLocaleString()}    HTTP ${req.method} ${req.url}`);
 
     switch(req.url){
         case '/ntxuva':
