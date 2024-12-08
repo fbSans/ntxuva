@@ -20,49 +20,101 @@ h1 {
     transform: translate(-50%, 0);
 }
 
+#current-player {
+    font-size: larger;
+    font-weight: bold;
+}
+
 #game {
     position: absolute;
     box-sizing: content-box;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    max-width: 500px;
     border: 2px solid black;
     border-radius: 10px;
     padding: 10px;
     background-color: rgb(76, 94, 110);
 }
 
-#current-player {
-    font-size: larger;
-    font-weight: bold;
+
+.board_side {
+    display: block;
+    position: relative;
+    box-sizing: border-box;
+    left: 50%;
+    transform: translate(-50%, 0);
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: rgb(233, 200, 162);
+}
+
+.board_row {
+    display: block;
+    position: relative;
+    left: 50%;
+    transform: translate(-52%, 0);
 }
 
 .board_slot {
+    display: inline;
     position: relative;
-    width: 60px;
-    height: 60px;
-    margin: 3px;
     border-radius: 45%;
-    font-size: large;
+    font-size: 80%;
+    text-align: center;
     font-weight: bold;
     background-color: rgb(213, 117, 27);
     color: rgb(11, 32, 34);
 }
 
-.board_row {
-    display: inline-block;
-    position: relative;
-    margin: 3px;
+
+
+@media (min-width: 767px) {
+    #game {
+        width: max-content;
+        height: max-content;
+    }
+
+    .board_side {
+        width: max-content;
+        margin: 1%;
+        padding: 20px;
+    }
+
+    .board_row {
+        width: max-content;
+        margin: 3%;
+    }
+    
+    .board_slot {
+        width: 30px;
+        aspect-ratio: 1;
+        margin: 2px;
+    }    
 }
 
-.board_side {
-    box-sizing: content-box;
-    position: relative;
-    left: 50%;
-    transform: translate(-55%, 0);
-    margin: 20px;
-    border: 2px solid black;
-    padding: 20px;
-    background-color: rgb(233, 200, 162);
+@media (max-width: 767px) {
+    #game {
+        width: max-content;
+    }
+    .board_side {
+        width: max-content;
+        margin-bottom: 1%;
+        padding: 10px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, 0%);
+    }
+
+    .board_row {
+        width: max-content;
+        margin: 5px;
+    }
+
+   .board_slot {
+        margin: 3px;
+        width: 30px;
+        height: 30px;
+        padding: 5px;
+   } 
 }
